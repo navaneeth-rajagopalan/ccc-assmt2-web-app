@@ -9,6 +9,8 @@ From page 37 of the following presentation explains about MapReduce in CouchDB.
 Note that I'm still working on my other assignment and am as yet to work out whether this works. Will know more tomorrow evening.
 [CouchDB: JSON,HTTP & MapReduce](http://nyphp.org/resources/nosql-php-couchdb-json-http-mapreduce.pdf)
 
+Here is the [Second Flow diagram](https://www.dropbox.com/home/COMP90050?preview=Flow+Diagram+v2.pdf)
+
 
 # WebApp
 
