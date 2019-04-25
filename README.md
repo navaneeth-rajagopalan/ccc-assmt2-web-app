@@ -1,6 +1,14 @@
 # Flow diagram
-
+## Version 1
 Here is our [Flow diagram](https://www.dropbox.com/s/3ityk0euq1g9t2k/Flow%20Diagram%28edited-Nitro%29.pdf?dl=0)
+
+## Version 2
+After reading some research on MapReduce, I feel like this needs to be changed. MapReduce, as far as my preliminary reading has led me to believe, is just a way of organising data. 
+[MapReduce: Simplified Data Processing on Large Clusters](https://static.googleusercontent.com/media/research.google.com/en//archive/mapreduce-osdi04.pdf)
+From page 37 of the following presentation explains about MapReduce in CouchDB. 
+Note that I'm still working on my other assignment and am as yet to work out whether this works. Will know more tomorrow evening.
+[CouchDB: JSON,HTTP & MapReduce](http://nyphp.org/resources/nosql-php-couchdb-json-http-mapreduce.pdf)
+
 
 # WebApp
 
