@@ -1,3 +1,7 @@
+# Flow diagram
+
+Here is our [Flow diagram](https://www.dropbox.com/s/3ityk0euq1g9t2k/Flow%20Diagram%28edited-Nitro%29.pdf?dl=0)
+
 # WebApp
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.8.
