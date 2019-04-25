@@ -24,7 +24,8 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 
 ## Data visualisation
 
-While reading a research paper, I stumbled accross [D3.js](https://d3js.org/) which is a Browser-Based JavaScript library for visualization.
+While reading a research paper, I stumbled accross [D3.js](https://d3js.org/) which is a Browser-Based JavaScript library for visualisation.
+The paper states that 'a browser's ability to deal with large datasets is limited - in practice a few megabytes at the most', which means we will need to aggregate the data before we visualise it.
 
 ## Further help
 
