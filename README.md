@@ -11,6 +11,9 @@ Note that I'm still working on my other assignment and am as yet to work out whe
 
 Here is the [Second Flow diagram](https://www.dropbox.com/home/COMP90050?preview=Flow+Diagram+v2.pdf)
 
+### Notes on MapReduce
+'In practice, we choose the amount of map tasks so that each individual task is roughly 16MB to 64MB of input data, and we make the reduce task a small multiple of the number of worker machines we expect to use'
+(MapReduce: Simplified Data Processing on Large Clusters)
 
 # WebApp
 
