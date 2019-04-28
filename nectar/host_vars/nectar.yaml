@@ -1,0 +1,31 @@
+---
+# Common vars
+availability_zone: melbourne-qh2-uom
+
+# Volume
+volumes:
+  - vol_name: demo-vol-1
+    vol_size: 10
+  - vol_name: demo-vol-2
+    vol_size: 10
+
+# Security group
+security_groups:
+  - name: demo_ssh
+    description: "Demo security group for SSH access"
+    protocol: tcp
+    port_range_min: 22
+    port_range_max: 22
+    remote_ip_prefix: 220.233.218.130/32
+  - name: demo_http
+    description: "Demo security group for HTTP"
+    protocol: tcp
+    port_range_min: 80
+    port_range_max: 80
+    remote_ip_prefix: 220.233.218.130/32
+
+# Instance
+instance_name: demo
+instance_image: 955a0556-1224-4499-a895-87d54d5cbf32
+instance_key_name: TestingKeyPair
+instance_flavor: uom.general.2c8g
