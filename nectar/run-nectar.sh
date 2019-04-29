@@ -1,3 +1,3 @@
 #!/bin/bash
 
-. ./openrc.sh; ansible-playbook --ask-become-pass nectar.yaml
+. unimelb-comp90024-group-55-openrc.sh; ansible-playbook --ask-become-pass nectar.yaml
