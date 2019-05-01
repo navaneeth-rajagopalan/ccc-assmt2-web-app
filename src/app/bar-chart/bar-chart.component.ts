@@ -1,79 +1,67 @@
-import { Component, ElementRef, Input, OnChanges, ViewChild, ViewEncapsulation } from '@angular/core';
-import * as d3 from 'd3';
-import { DataModel } from 'src/app/data/data.model';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+declare const Plotly
 
 @Component({
   selector: 'app-bar-chart',
-  encapsulation: ViewEncapsulation.None,
   templateUrl: './bar-chart.component.html',
   styleUrls: ['./bar-chart.component.css']
 })
-export class BarChartComponent implements OnChanges {
-  @ViewChild('chart')
-  private chartContainer: ElementRef;
-
-  @Input()
-  data: DataModel[];
-
-  margin = {top: 20, right: 20, bottom: 30, left: 40};
-
-  constructor() { }
-
-  ngOnChanges(): void {
-    if (!this.data) { return; }
-
-    this.createChart();
+export class BarChartComponent implements OnInit{
+  @ViewChild('scatterPlot') scatterPlotEl: ElementRef;
+  ngOnInit(){
+    this.scatterPlot()
   }
+  scatterPlot(){
+    const scatterPlotEl = this.scatterPlotEl.nativeElement
+    const trace1 = {
+      x: [1, 2, 3, 4, 5],
+      y: [1, 6, 3, 6, 1],
+      mode: 'markers+text',
+      type: 'scatter',
+      name: 'Team A',
+      text: ['A-1', 'A-2', 'A-3', 'A-4', 'A-5'],
+      textposition: 'top center',
+      textfont: {
+        family:  'Raleway, sans-serif'
+      },
+      marker: { size: 12 }
+    };
+    
+    const trace2 = {
+      x: [1.5, 2.5, 3.5, 4.5, 5.5],
+      y: [4, 1, 7, 1, 4],
+      mode: 'markers+text',
+      type: 'scatter',
+      name: 'Team B',
+      text: ['B-a', 'B-b', 'B-c', 'B-d', 'B-e'],
+      textfont : {
+        family:'Times New Roman'
+      },
+      textposition: 'bottom center',
+      marker: { size: 12 }
+    };
+    
+    const data = [ trace1, trace2 ];
+    
+    const layout = { 
+      xaxis: {
+        range: [ 0.75, 5.25 ] 
+      },
+      yaxis: {
+        range: [0, 8]
+      },
+      legend: {
+        y: 0.5,
+        yref: 'paper',
+        font: {
+          family: 'Arial, sans-serif',
+          size: 20,
+          color: 'grey',
+        }
+      },
+      title:'Data Labels on the Plot'
+    };
 
-  private createChart(): void {
-    d3.select('svg').remove();
-
-    const element = this.chartContainer.nativeElement;
-    const data = this.data;
-
-    const svg = d3.select(element).append('svg')
-        .attr('width', element.offsetWidth)
-        .attr('height', element.offsetHeight);
-
-    const contentWidth = element.offsetWidth - this.margin.left - this.margin.right;
-    const contentHeight = element.offsetHeight - this.margin.top - this.margin.bottom;
-
-    const x = d3
-      .scaleBand()
-      .rangeRound([0, contentWidth])
-      .padding(0.1)
-      .domain(data.map(d => d.letter));
-
-    const y = d3
-      .scaleLinear()
-      .rangeRound([contentHeight, 0])
-      .domain([0, d3.max(data, d => d.frequency)]);
-
-    const g = svg.append('g')
-      .attr('transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')');
-
-    g.append('g')
-      .attr('class', 'axis axis--x')
-      .attr('transform', 'translate(0,' + contentHeight + ')')
-      .call(d3.axisBottom(x));
-
-    g.append('g')
-      .attr('class', 'axis axis--y')
-      .call(d3.axisLeft(y).ticks(10, '%'))
-      .append('text')
-        .attr('transform', 'rotate(-90)')
-        .attr('y', 6)
-        .attr('dy', '0.71em')
-        .attr('text-anchor', 'end')
-        .text('Frequency');
-
-    g.selectAll('.bar')
-      .data(data)
-      .enter().append('rect')
-        .attr('class', 'bar')
-        .attr('x', d => x(d.letter))
-        .attr('y', d => y(d.frequency))
-        .attr('width', x.bandwidth())
-        .attr('height', d => contentHeight - y(d.frequency));
+    Plotly.plot(scatterPlotEl, data, layout )
   }
 }
