@@ -1,0 +1,55 @@
+.container{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+.group-title{
+    font-size: 50px;
+    color: #CCC;
+    margin: 20px;
+}
+.main-container{
+    display: flex;
+}
+.relation-question{
+    color: white;
+    font-size: 50px;
+}
+.relation-question .highlight{
+    font-style: italic;
+    color: red;
+    font-weight: bolder;
+}
+.scroll-container{
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+.scroll-element{
+    margin-bottom: 50px;
+    height: 50px;
+    width: 50px;
+    animation: jump .5s linear alternate infinite;
+}
+.scroll-text{
+    color: white;
+    text-align: center;
+    font-size: 24px;
+}
+.title-wrapper{
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    width: 100%;
+}
+@keyframes jump {
+    0%   {transform: translate3d(0,0,0) scale3d(1,1,1);}
+    40%  {transform: translate3d(0,30%,0) scale3d(1,1.2,1);}
+    100% {transform: translate3d(0,100%,0) scale3d(1,.7,1);}
+}

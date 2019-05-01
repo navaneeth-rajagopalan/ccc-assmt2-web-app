@@ -3,22 +3,24 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { IntroComponent } from './intro/intro.component'
+import { HomeComponent } from './home/home.component'
 import { VisualizationComponent } from './visualization/visualization.component'
 import { CreditsComponent } from './credits/credits.component';
 import { BarChartComponent } from './bar-chart/bar-chart.component';
+import { HttpClientModule } from '@angular/common/http'
 
 @NgModule({
   declarations: [
     AppComponent,
-    IntroComponent,
+    HomeComponent,
     VisualizationComponent,
     CreditsComponent,
     BarChartComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

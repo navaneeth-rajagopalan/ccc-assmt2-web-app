@@ -10,14 +10,4 @@ export class AppComponent {
   constructor(private animateScrollService: NgAnimateScrollService){
 
   }
-
-  navigateToTitle(duration?:number){
-    console.log("Clicked to scroll - Title")
-    this.animateScrollService.scrollToElement('proj-intro', duration)
-  }
-
-  navigateToVisual(duration?:number){
-    console.log("Clicked to scroll - Visual")
-    this.animateScrollService.scrollToElement('data-visual', duration)
-  }
 }
