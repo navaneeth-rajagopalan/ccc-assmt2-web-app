@@ -2,11 +2,11 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 declare const Plotly
 
 @Component({
-  selector: 'app-bar-chart',
-  templateUrl: './bar-chart.component.html',
-  styleUrls: ['./bar-chart.component.css']
+  selector: 'app-scatter-plot',
+  templateUrl: './scatter-plot.component.html',
+  styleUrls: ['./scatter-plot.component.css']
 })
-export class BarChartComponent implements OnInit{
+export class ScatterPlotComponent implements OnInit{
   @ViewChild('scatterPlot') scatterPlotEl: ElementRef;
   ngOnInit(){
     this.scatterPlot()

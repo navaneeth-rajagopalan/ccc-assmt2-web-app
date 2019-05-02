@@ -3,10 +3,10 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HomeComponent } from './home/home.component'
-import { VisualizationComponent } from './visualization/visualization.component'
+import { HomeComponent } from './home/home.component';
+import { VisualizationComponent } from './visualization/visualization.component';
 import { CreditsComponent } from './credits/credits.component';
-import { BarChartComponent } from './bar-chart/bar-chart.component';
+import { ScatterPlotComponent } from './scatter-plot/scatter-plot.component';
 import { HttpClientModule } from '@angular/common/http'
 
 @NgModule({
@@ -15,7 +15,7 @@ import { HttpClientModule } from '@angular/common/http'
     HomeComponent,
     VisualizationComponent,
     CreditsComponent,
-    BarChartComponent
+    ScatterPlotComponent
   ],
   imports: [
     BrowserModule,
