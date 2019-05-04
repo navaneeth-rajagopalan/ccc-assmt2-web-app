@@ -19,4 +19,7 @@ export class VisualizationComponent{
 		console.log("Clicked to scroll - Home")
 		this.animateScrollService.scrollToElement('home', duration)
 	}
+	changeVisual(){
+		
+	}
 }

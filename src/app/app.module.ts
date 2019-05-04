@@ -10,6 +10,7 @@ import { ScatterPlotComponent } from './scatter-plot/scatter-plot.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ApiService } from './services/api.service';
 import { WindowScrollDirective } from './directives/window-scroll.directive';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { WindowScrollDirective } from './directives/window-scroll.directive';
     VisualizationComponent,
     CreditsComponent,
     ScatterPlotComponent,
-    WindowScrollDirective
+    WindowScrollDirective,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,

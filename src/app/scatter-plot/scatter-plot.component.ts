@@ -45,6 +45,6 @@ export class ScatterPlotComponent implements OnInit{
   }
   scatterPlot(scatterPlotDataItems, layout){
     const scatterPlotEl = this.scatterPlotEl.nativeElement;
-    Plotly.plot('scatterplot', scatterPlotDataItems, layout, {responsive: true})
+    Plotly.plot('scatterplot', scatterPlotDataItems, layout, {responsive: true, scrollZoom: true})
   }
 }

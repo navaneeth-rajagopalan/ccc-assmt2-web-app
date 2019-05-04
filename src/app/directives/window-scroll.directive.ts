@@ -1,22 +1,23 @@
-import { Directive } from '@angular/core';
+import { Directive, ElementRef } from '@angular/core';
 
 @Directive({
   selector: '[appWindowScroll]'
 })
 export class WindowScrollDirective {
 
-  constructor() { }
+  constructor(private el: ElementRef) {
+    console.log(el)
+  }
 
   ngOnInit() {
-    window.addEventListener('scroll', this.scrollEvent, true);
+    window.addEventListener('mousewheel', this.scrollEvent, true);
   }
 
   ngOnDestroy() {
-    window.removeEventListener('scroll', this.scrollEvent, true);
+    window.removeEventListener('mousewheel', this.scrollEvent, true);
   }
 
-  scrollEvent = (event: any): void => {
+  scrollEvent(event: Event){
     console.log("Test | Scrolling");
-    const number = event.srcElement.scrollTop;
   }   
 }

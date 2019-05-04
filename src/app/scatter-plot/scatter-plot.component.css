@@ -1,3 +1,7 @@
+:host{
+    width: 95%;
+    height: 90vh;
+}
 .scatter-plot{
     width: 100%;
     height: 100%;

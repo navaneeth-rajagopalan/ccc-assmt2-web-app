@@ -4,12 +4,12 @@
             <div class="navigation-item" (click)="scrollToHome()">
                 <img src="../../assets/Images/icon-home.svg">
             </div>
-            <div class="navigation-item active">
+            <div class="navigation-item active" (click)="changeVisual()">
                 <img src="../../assets/Images/icon-scatter-plot.svg">
             </div>
         </div>
     </div>
     <div class="visualization-container">
-        <app-scatter-plot></app-scatter-plot>
+        <router-outlet class="visualization-wrapper"></router-outlet>
     </div>
 </div>
