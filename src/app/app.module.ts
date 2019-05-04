@@ -7,7 +7,9 @@ import { HomeComponent } from './home/home.component';
 import { VisualizationComponent } from './visualization/visualization.component';
 import { CreditsComponent } from './credits/credits.component';
 import { ScatterPlotComponent } from './scatter-plot/scatter-plot.component';
-import { HttpClientModule } from '@angular/common/http'
+import { HttpClientModule } from '@angular/common/http';
+import { ApiService } from './services/api.service';
+import { WindowScrollDirective } from './directives/window-scroll.directive';
 
 @NgModule({
   declarations: [
@@ -15,14 +17,17 @@ import { HttpClientModule } from '@angular/common/http'
     HomeComponent,
     VisualizationComponent,
     CreditsComponent,
-    ScatterPlotComponent
+    ScatterPlotComponent,
+    WindowScrollDirective
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [
+    ApiService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

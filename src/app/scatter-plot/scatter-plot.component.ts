@@ -1,4 +1,9 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { ApiService } from '../services/api.service';
+import { AngerDrugCoRelation } from '../models/anger-drug-co-relation';
+import { ScatterPlotData } from '../models/scatter-plot-data';
+import { ScatterPlotLayout } from '../models/scatter-plot-layout';
+
 declare const Plotly
 
 @Component({
@@ -7,61 +12,39 @@ declare const Plotly
   styleUrls: ['./scatter-plot.component.css']
 })
 export class ScatterPlotComponent implements OnInit{
-  @ViewChild('scatterPlot') scatterPlotEl: ElementRef;
-  ngOnInit(){
-    this.scatterPlot()
-  }
-  scatterPlot(){
-    const scatterPlotEl = this.scatterPlotEl.nativeElement
-    const trace1 = {
-      x: [1, 2, 3, 4, 5],
-      y: [1, 6, 3, 6, 1],
-      mode: 'markers+text',
-      type: 'scatter',
-      name: 'Team A',
-      text: ['A-1', 'A-2', 'A-3', 'A-4', 'A-5'],
-      textposition: 'top center',
-      textfont: {
-        family:  'Raleway, sans-serif'
-      },
-      marker: { size: 12 }
-    };
-    
-    const trace2 = {
-      x: [1.5, 2.5, 3.5, 4.5, 5.5],
-      y: [4, 1, 7, 1, 4],
-      mode: 'markers+text',
-      type: 'scatter',
-      name: 'Team B',
-      text: ['B-a', 'B-b', 'B-c', 'B-d', 'B-e'],
-      textfont : {
-        family:'Times New Roman'
-      },
-      textposition: 'bottom center',
-      marker: { size: 12 }
-    };
-    
-    const data = [ trace1, trace2 ];
-    
-    const layout = { 
-      xaxis: {
-        range: [ 0.75, 5.25 ] 
-      },
-      yaxis: {
-        range: [0, 8]
-      },
-      legend: {
-        y: 0.5,
-        yref: 'paper',
-        font: {
-          family: 'Arial, sans-serif',
-          size: 20,
-          color: 'grey',
-        }
-      },
-      title:'Data Labels on the Plot'
-    };
 
-    Plotly.plot(scatterPlotEl, data, layout )
+  @ViewChild('scatterPlot') scatterPlotEl: ElementRef;
+
+  angerDrugCoRelationList: AngerDrugCoRelation[];
+  scatterPlotDataItems: ScatterPlotData[];
+  scatterPlotLayout: ScatterPlotLayout;
+
+  constructor(private _apiService: ApiService){
+    this.scatterPlotDataItems = []
+  }
+
+  ngOnInit(){
+    this._apiService.getAngerDrugCoRelation()
+    .subscribe(data => {
+      let xMax = 0, xMin = Number.MAX_SAFE_INTEGER,
+          yMax = 0, yMin = Number.MAX_SAFE_INTEGER;
+      this.angerDrugCoRelationList = data;
+      this.angerDrugCoRelationList.forEach(angerDrugCoRelationData => {
+        xMin = angerDrugCoRelationData.angryTweetPercent < xMin ? angerDrugCoRelationData.angryTweetPercent : xMin;
+        xMax = angerDrugCoRelationData.angryTweetPercent > xMax ? angerDrugCoRelationData.angryTweetPercent : xMax;
+        yMin = angerDrugCoRelationData.angryTweetPercent < yMin ? angerDrugCoRelationData.reportedDrugCases : yMin;
+        yMax = angerDrugCoRelationData.angryTweetPercent > yMax ? angerDrugCoRelationData.reportedDrugCases : yMax;
+        this.scatterPlotDataItems.push(new ScatterPlotData(angerDrugCoRelationData.angryTweetPercent,
+          angerDrugCoRelationData.reportedDrugCases,
+          angerDrugCoRelationData.suburbs,
+          angerDrugCoRelationData.angryTweetPercent))
+      });
+      this.scatterPlotLayout = new ScatterPlotLayout(xMin, xMax, yMin, yMax, "Percentage of Angry Tweets", "Reported Drug Cases", "Anger vs Drug")
+      this.scatterPlot(this.scatterPlotDataItems, this.scatterPlotLayout);
+    })
+  }
+  scatterPlot(scatterPlotDataItems, layout){
+    const scatterPlotEl = this.scatterPlotEl.nativeElement;
+    Plotly.plot('scatterplot', scatterPlotDataItems, layout, {responsive: true})
   }
 }
