@@ -30,6 +30,11 @@ body{
     height: 100%;
 }
 
+main{
+    text-align: center;
+    position: relative;
+}
+
 .clearfix {
     clear: both;
 }

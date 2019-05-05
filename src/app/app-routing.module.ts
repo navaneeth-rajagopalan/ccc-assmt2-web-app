@@ -7,9 +7,9 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { ScatterPlotComponent } from './scatter-plot/scatter-plot.component';
 
 const routes: Routes = [
-  {path: '', redirectTo: '/home', pathMatch: 'full'},
-  {path: 'home', component: HomeComponent},
-  {path: 'visualization', component: VisualizationComponent,
+  {path: '', redirectTo: '/home', pathMatch: 'full', data: { animation: 'isRight' }},
+  {path: 'home', component: HomeComponent, data: { animation: 'isRight' }},
+  {path: 'visualization', component: VisualizationComponent, data: { animation: 'isLeft' },
     children:[
       {path: '', redirectTo: 'corelation', pathMatch: 'full'},
       {path: 'corelation', component: ScatterPlotComponent},

@@ -3,6 +3,7 @@ import { NgAnimateScrollService } from 'ng-animate-scroll';
 import { HttpClient } from '@angular/common/http'
 import { Observable } from 'rxjs';
 import { DataModel } from 'src/app/data/data.model'
+import { Routes, RouterModule } from '@angular/router';
 
 @Component({
 	selector: 'app-visualization',
