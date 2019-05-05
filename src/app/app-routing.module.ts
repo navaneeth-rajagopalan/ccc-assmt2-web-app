@@ -5,6 +5,7 @@ import { CreditsComponent } from './credits/credits.component';
 import { VisualizationComponent } from './visualization/visualization.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { ScatterPlotComponent } from './scatter-plot/scatter-plot.component';
+import { BarGraphComponent } from './bar-graph/bar-graph.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/home', pathMatch: 'full', data: { animation: 'isRight' }},
@@ -13,6 +14,7 @@ const routes: Routes = [
     children:[
       {path: '', redirectTo: 'corelation', pathMatch: 'full'},
       {path: 'corelation', component: ScatterPlotComponent},
+      {path: 'report', component: BarGraphComponent},
       {path: '**', redirectTo: 'corelation', pathMatch: 'full'}
     ]
   },

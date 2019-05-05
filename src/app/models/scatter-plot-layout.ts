@@ -7,7 +7,7 @@ export class ScatterPlotLayout {
     _extendRange(actualValue: number, extendRatio: number){
         return parseInt((actualValue + (actualValue * extendRatio)).toString())
     }
-    constructor(xMin, xMax, yMin, yMax, xAxisTitle, yAxisTitle, title){
+    constructor(xAxisTitle, yAxisTitle, title){
         this.xaxis = {title: { text: xAxisTitle, font: { family: 'Roboto', size: 24}}};
         this.yaxis = {title: { text: yAxisTitle, font: { family: 'Roboto', size: 24}}};
         this.legend =  {y: 0.5, yref: 'paper', font: { family: 'Roboto', size: 20, color: '#777', } };

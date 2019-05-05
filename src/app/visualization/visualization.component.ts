@@ -12,9 +12,11 @@ import { Routes, RouterModule } from '@angular/router';
 })
 export class VisualizationComponent{
 	data: Observable<DataModel>;
+	visual: string; 
 
 	constructor(private animateScrollService: NgAnimateScrollService, private http: HttpClient){
-		this.data = this.http.get<DataModel>('../../assets/data/data.json')
+		this.data = this.http.get<DataModel>('../../assets/data/data.json');
+		this.visual = 'visual1'
 	}
 	scrollToHome(duration?:number){
 		console.log("Clicked to scroll - Home")

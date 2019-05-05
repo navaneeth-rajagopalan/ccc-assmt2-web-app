@@ -11,6 +11,7 @@ import { ScatterPlotComponent } from './scatter-plot/scatter-plot.component';
 import { ApiService } from './services/api.service';
 import { WindowScrollDirective } from './directives/window-scroll.directive';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { BarGraphComponent } from './bar-graph/bar-graph.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     CreditsComponent,
     ScatterPlotComponent,
     WindowScrollDirective,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    BarGraphComponent
   ],
   imports: [
     BrowserModule,

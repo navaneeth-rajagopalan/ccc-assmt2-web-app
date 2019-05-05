@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ApiService {
-  apiURL: string = 'http://localhost:5454/api/anger-drug/co-relation';
+  apiURL: string = 'http://45.113.233.10:3001/api/anger-drug/co-relation';
   
   constructor(private httpClient: HttpClient) {
 

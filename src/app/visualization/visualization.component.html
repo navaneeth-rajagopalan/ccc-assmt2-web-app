@@ -4,8 +4,11 @@
             <div class="navigation-item" routerLink="/home">
                 <img src="../../assets/Images/icon-home.svg">
             </div>
-            <div class="navigation-item active" (click)="changeVisual()">
+            <div class="navigation-item" routerLink="/visualization/corelation" [ngClass]="{'active': visual ==='visual1'}" (click)="visual = 'visual1'">
                 <img src="../../assets/Images/icon-scatter-plot.svg">
+            </div>
+            <div class="navigation-item" routerLink="/visualization/report" [ngClass]="{'active': visual ==='visual2'}" (click)="visual = 'visual2'">
+                <img src="../../assets/Images/icon-bar-graph.svg">
             </div>
         </div>
     </div>

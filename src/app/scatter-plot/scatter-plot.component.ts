@@ -39,7 +39,7 @@ export class ScatterPlotComponent implements OnInit{
           angerDrugCoRelationData.suburbs,
           angerDrugCoRelationData.angryTweetPercent))
       });
-      this.scatterPlotLayout = new ScatterPlotLayout(xMin, xMax, yMin, yMax, "Percentage of Angry Tweets", "Reported Drug Cases", "Anger vs Drug")
+      this.scatterPlotLayout = new ScatterPlotLayout("Percentage of Angry Tweets", "Reported Drug Cases per 100 inhabitants", "Anger vs Drug")
       this.scatterPlot(this.scatterPlotDataItems, this.scatterPlotLayout);
     })
   }

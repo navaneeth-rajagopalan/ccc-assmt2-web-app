@@ -1,0 +1,14 @@
+:host{
+    width: 100%;
+    height: 90vh;
+}
+.bar-graph{
+    width: 48%;
+    height: 80vh;
+}
+.bar-graph-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
