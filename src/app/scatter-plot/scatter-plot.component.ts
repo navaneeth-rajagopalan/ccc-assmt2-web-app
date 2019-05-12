@@ -24,23 +24,26 @@ export class ScatterPlotComponent implements OnInit{
   }
 
   ngOnInit(){
-    this._apiService.getAngerDrugCoRelation()
-    .subscribe(data => {
-      let xMax = 0, xMin = Number.MAX_SAFE_INTEGER,
-          yMax = 0, yMin = Number.MAX_SAFE_INTEGER;
-      this.angerDrugCoRelationList = data;
-      this.angerDrugCoRelationList.forEach(angerDrugCoRelationData => {
-        xMin = angerDrugCoRelationData.angryTweetPercent < xMin ? angerDrugCoRelationData.angryTweetPercent : xMin;
-        xMax = angerDrugCoRelationData.angryTweetPercent > xMax ? angerDrugCoRelationData.angryTweetPercent : xMax;
-        yMin = angerDrugCoRelationData.angryTweetPercent < yMin ? angerDrugCoRelationData.reportedDrugCases : yMin;
-        yMax = angerDrugCoRelationData.angryTweetPercent > yMax ? angerDrugCoRelationData.reportedDrugCases : yMax;
-        this.scatterPlotDataItems.push(new ScatterPlotData(angerDrugCoRelationData.angryTweetPercent,
-          angerDrugCoRelationData.reportedDrugCases,
-          angerDrugCoRelationData.suburbs,
-          angerDrugCoRelationData.angryTweetPercent))
-      });
-      this.scatterPlotLayout = new ScatterPlotLayout("Percentage of Angry Tweets", "Reported Drug Cases per 100 inhabitants", "Anger vs Drug")
-      this.scatterPlot(this.scatterPlotDataItems, this.scatterPlotLayout);
+    this._apiService.getJSON().subscribe(data =>{
+      console.log(data);
+      this._apiService.getAngerDrugCoRelation('http://' +  data.address + ':3001/api/anger-drug/co-relation')
+      .subscribe(data => {
+        let xMax = 0, xMin = Number.MAX_SAFE_INTEGER,
+            yMax = 0, yMin = Number.MAX_SAFE_INTEGER;
+        this.angerDrugCoRelationList = data;
+        this.angerDrugCoRelationList.forEach(angerDrugCoRelationData => {
+          xMin = angerDrugCoRelationData.angryTweetPercent < xMin ? angerDrugCoRelationData.angryTweetPercent : xMin;
+          xMax = angerDrugCoRelationData.angryTweetPercent > xMax ? angerDrugCoRelationData.angryTweetPercent : xMax;
+          yMin = angerDrugCoRelationData.angryTweetPercent < yMin ? angerDrugCoRelationData.reportedDrugCases : yMin;
+          yMax = angerDrugCoRelationData.angryTweetPercent > yMax ? angerDrugCoRelationData.reportedDrugCases : yMax;
+          this.scatterPlotDataItems.push(new ScatterPlotData(angerDrugCoRelationData.angryTweetPercent,
+            angerDrugCoRelationData.reportedDrugCases,
+            angerDrugCoRelationData.suburbs,
+            angerDrugCoRelationData.angryTweetPercent))
+        });
+        this.scatterPlotLayout = new ScatterPlotLayout("Percentage of Angry Tweets", "Reported Drug Cases per 100 inhabitants", "Anger vs Drug")
+        this.scatterPlot(this.scatterPlotDataItems, this.scatterPlotLayout);
+      })
     })
   }
   scatterPlot(scatterPlotDataItems, layout){

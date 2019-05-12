@@ -7,13 +7,16 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ApiService {
-  apiURL: string = 'http://45.113.233.10:3001/api/anger-drug/co-relation';
+  apiURL: string;
   
   constructor(private httpClient: HttpClient) {
-
+    
   }
 
-  public getAngerDrugCoRelation(): Observable<any>{
-    return this.httpClient.get(this.apiURL)
+  public getJSON(): Observable<any> {
+    return this.httpClient.get("./assets/data/couchDB_IP_address.json");
+  }
+  public getAngerDrugCoRelation(apiURL): Observable<any>{
+    return this.httpClient.get(apiURL)
   }
 }
