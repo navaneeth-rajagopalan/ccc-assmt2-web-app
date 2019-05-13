@@ -17,6 +17,6 @@ export class ApiService {
     return this.httpClient.get("./assets/data/couch_API_URL.json");
   }
   public getAngerDrugCoRelation(apiURL): Observable<any>{
-    return this.httpClient.get(apiURL)
+    return this.httpClient.get("/api/anger-drug/co-relation")
   }
 }

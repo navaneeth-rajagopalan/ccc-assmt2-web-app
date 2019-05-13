@@ -24,6 +24,7 @@
     "express": "^4.16.4",
     "ng-animate-scroll": "^7.1.0",
     "plotly.js": "^1.47.4",
+    "request": "^2.88.0",
     "rxjs": "~6.3.3",
     "tslib": "^1.9.0",
     "zone.js": "~0.8.26"
