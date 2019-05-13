@@ -24,9 +24,9 @@ export class ScatterPlotComponent implements OnInit{
   }
 
   ngOnInit(){
-    this._apiService.getJSON().subscribe(data =>{
+    this._apiService.getAPI_URL().subscribe(data =>{
       console.log(data);
-      this._apiService.getAngerDrugCoRelation('http://' +  data.address + ':3001/api/anger-drug/co-relation')
+      this._apiService.getAngerDrugCoRelation(data.API_URL)
       .subscribe(data => {
         let xMax = 0, xMin = Number.MAX_SAFE_INTEGER,
             yMax = 0, yMin = Number.MAX_SAFE_INTEGER;

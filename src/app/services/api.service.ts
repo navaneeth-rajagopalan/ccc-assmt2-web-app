@@ -13,8 +13,8 @@ export class ApiService {
     
   }
 
-  public getJSON(): Observable<any> {
-    return this.httpClient.get("./assets/data/couchDB_IP_address.json");
+  public getAPI_URL(): Observable<any> {
+    return this.httpClient.get("./assets/data/couch_API_URL.json");
   }
   public getAngerDrugCoRelation(apiURL): Observable<any>{
     return this.httpClient.get(apiURL)

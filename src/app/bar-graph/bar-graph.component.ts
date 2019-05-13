@@ -27,9 +27,9 @@ export class BarGraphComponent implements OnInit {
   }
 
   ngOnInit(){
-    this._apiService.getJSON().subscribe(data =>{
+    this._apiService.getAPI_URL().subscribe(data =>{
       console.log(data);
-      this._apiService.getAngerDrugCoRelation('http://' +  data.address + ':3001/api/anger-drug/co-relation')
+      this._apiService.getAngerDrugCoRelation(data.API_URL)
       .subscribe(data => {
         this.angerDrugCoRelationList = data;
         this.angerDrugCoRelationList.forEach(angerDrugCoRelationData => {
