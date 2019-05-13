@@ -1,0 +1,18 @@
+<div class="container">
+    <div class="navigation-container">
+        <div class="navigation-section">
+            <div class="navigation-item" routerLink="/home">
+                <img src="../../assets/Images/icon-home.svg">
+            </div>
+            <div class="navigation-item" routerLink="/visualization/corelation" [ngClass]="{'active': visual ==='visual1'}" (click)="visual = 'visual1'">
+                <img src="../../assets/Images/icon-scatter-plot.svg">
+            </div>
+            <div class="navigation-item" routerLink="/visualization/report" [ngClass]="{'active': visual ==='visual2'}" (click)="visual = 'visual2'">
+                <img src="../../assets/Images/icon-bar-graph.svg">
+            </div>
+        </div>
+    </div>
+    <div class="visualization-container">
+        <router-outlet class="visualization-wrapper"></router-outlet>
+    </div>
+</div>
