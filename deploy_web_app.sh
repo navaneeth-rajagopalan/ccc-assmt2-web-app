@@ -1,3 +1,8 @@
+if [ $# -eq 0 ]
+  then
+    echo "Missing Couch DB Instance IP Address"
+    exit 1
+fi
 apt-get update
 apt-get install git
 apt-get install nodejs
@@ -10,4 +15,5 @@ cd web-app
 npm install
 node couchDB_IP_address_injector.js $1
 ng build --prod
-node server.js
+fuser -k 4200/tcp
+nohup node server.js &
