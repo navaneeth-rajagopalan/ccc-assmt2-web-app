@@ -1,5 +1,5 @@
 export class AngerDrugCoRelation {
-    suburbs: string;
+    municipality: string;
     angryTweetPercent: number;
-    reportedDrugCases: number;
+    reportedDrugCasesPer100: number;
 }

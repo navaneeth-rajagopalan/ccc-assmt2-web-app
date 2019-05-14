@@ -16,7 +16,20 @@ export class ApiService {
   public getAPI_URL(): Observable<any> {
     return this.httpClient.get("./assets/data/couch_API_URL.json");
   }
-  public getAngerDrugCoRelation(apiURL): Observable<any>{
-    return this.httpClient.get("/api/anger-drug/co-relation")
+
+  public getAngerValues(apiURL): Observable<any>{
+    return this.httpClient.get("/api/anger-drug/angryVals")
+  }
+
+  public getTotalValue(apiURL): Observable<any>{
+    return this.httpClient.get("/api/anger-drug/totalVals")
+  }
+
+  public getAurinDrugCasesVals(apiURL): Observable<any>{
+    return this.httpClient.get("/api/anger-drug/aurinDrugCasesVals")
+  }
+
+  public getAurinPopulationVals(apiURL): Observable<any>{
+    return this.httpClient.get("/api/anger-drug/aurinPopulationVals")
   }
 }

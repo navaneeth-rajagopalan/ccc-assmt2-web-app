@@ -6,6 +6,7 @@ export class BarGraphLayout {
     _extendRange(actualValue: number, extendRatio: number){
         return parseInt((actualValue + (actualValue * extendRatio)).toString())
     }
+    
     constructor(title){
         this.xaxis = {
             tickangle: -45
