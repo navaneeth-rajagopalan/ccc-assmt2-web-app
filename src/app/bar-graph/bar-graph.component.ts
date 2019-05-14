@@ -114,7 +114,7 @@ export class BarGraphComponent implements OnInit {
 									self.tempData4.forEach(function(finalData){
 										let corData = new AngerDrugCoRelation()
 										corData.municipality = finalData.municipality;
-										corData.angryTweetPercent = finalData.angryTweetsCount / finalData.totalTweetsCount
+										corData.angryTweetPercent = (finalData.angryTweetsCount / finalData.totalTweetsCount) * 100
 										corData.reportedDrugCasesPer100 = ((finalData.reportedDrugCases / finalData.totalPopulation) * 100)
 										self.angerDrugCoRelationList.push(corData)
 									})
