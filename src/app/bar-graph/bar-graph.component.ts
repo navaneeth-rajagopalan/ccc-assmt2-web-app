@@ -122,8 +122,8 @@ export class BarGraphComponent implements OnInit {
 										self.tweetsBarGraphDataItems.push(new BarGraphData(angerDrugCoRelationData.municipality, angerDrugCoRelationData.angryTweetPercent));
 										self.drugCasesBarGraphDataItems.push(new BarGraphData(angerDrugCoRelationData.municipality, angerDrugCoRelationData.reportedDrugCasesPer100));
 									});
-									self.tweetsBarGraphLayout = new BarGraphLayout("Percentage of Angry Tweets")
-									self.drugCasesBarGraphLayout = new BarGraphLayout("Reported Drug Cases per 100 inhabitants")
+									self.tweetsBarGraphLayout = new BarGraphLayout("Percentage of angry tweets")
+									self.drugCasesBarGraphLayout = new BarGraphLayout("Drug related offences per 100 inhabitants")
 									self.scatterPlot('tweets-bargraph', self.tweetsBarGraphDataItems, self.tweetsBarGraphLayout);
 									self.scatterPlot('drug-cases-bargraph', self.drugCasesBarGraphDataItems, self.drugCasesBarGraphLayout);
 							})

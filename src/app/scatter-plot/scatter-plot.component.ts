@@ -120,7 +120,7 @@ export class ScatterPlotComponent implements OnInit{
 							angerDrugCoRelationData.municipality,
 							angerDrugCoRelationData.angryTweetPercent))
 						});
-						self.scatterPlotLayout = new ScatterPlotLayout("Percentage of Angry Tweets", "Reported Drug Cases per 100 inhabitants", "Anger vs Drug")
+            self.scatterPlotLayout = new ScatterPlotLayout("Percentage of angry tweets", "Drug related offences per 100 inhabitants", "Anger vs Drug use")
 						self.scatterPlot(self.scatterPlotDataItems, self.scatterPlotLayout);
 
 					})
