@@ -31,8 +31,8 @@ router.get('/api/anger-drug/aurinDrugCasesVals', function (req, response) {
     console.log(couchDB_URL)
     request(couchDB_URL, { json: true }, (err, res, body) => {
         if (err) { return console.log(err); }
-        console.log(res.body.rows)
-        response.json(res.body.rows)
+        console.log(res.body)
+        response.json(res.body)
     });
 });
 

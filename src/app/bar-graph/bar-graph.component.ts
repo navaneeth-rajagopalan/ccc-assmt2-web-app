@@ -4,6 +4,7 @@ import { AngerDrugCoRelation } from '../models/anger-drug-co-relation';
 import { ViewData } from '../models/views-data';
 import { BarGraphData } from '../models/bar-graph-data';
 import { BarGraphLayout } from '../models/bar-graph-layout';
+import { forkJoin } from 'rxjs';
 
 declare const Plotly
 
@@ -26,7 +27,7 @@ export class BarGraphComponent implements OnInit {
   tweetsBarGraphLayout: BarGraphLayout;
   drugCasesBarGraphDataItems: BarGraphData[];
   drugCasesBarGraphLayout: BarGraphLayout;
-
+  loading: boolean;
   constructor(private _apiService: ApiService){
     this.tweetsBarGraphDataItems = []
     this.drugCasesBarGraphDataItems = []
@@ -54,82 +55,79 @@ export class BarGraphComponent implements OnInit {
   }
 
   ngOnInit(){
-		let self = this
+    let self = this
+    self.loading = true;
     this._apiService.getAPI_URL().subscribe(data =>{
       console.log(data);
-      self._apiService.getAngerValues(data.API_URL)
-      .subscribe(angryValsData => {
-			let angerVals = angryValsData["rows"]
-			self.tempData = []
-			angerVals.forEach(function(angryVal){
-				self.tempData.push({
-					municipality: angryVal["key"],
-					angryTweetsCount: angryVal["value"],
-					totalTweetsCount: -1,
-					angryTweetPercent: -1,
-					reportedDrugCases: -1,
-					totalPopulation: -1,
-					drugCasesPer100Pop: -1
-				})
-			})
+      let angerCalReq = self._apiService.getAngerValues(data.API_URL);
+      let totalValsReq = self._apiService.getTotalValue(data.API_URL);
+      let aurinDrugCasesReq = self._apiService.getAurinDrugCasesVals(data.API_URL);
+      let aurinPopReq = self._apiService.getAurinPopulationVals(data.API_URL);
 
-			self._apiService.getTotalValue(data.API_URL)
-			.subscribe(totalValsData => {
-        let totalVals = totalValsData["rows"]
+      forkJoin([angerCalReq, totalValsReq, aurinDrugCasesReq, aurinPopReq]).subscribe(results => {
+        let angerVals = results[0]["rows"]
+        let totalVals = results[1]["rows"]
+        let aurinDrugCasesVals = results[2]["rows"]
+        let aurinPopulationVals = results[3]["rows"]
+        self.tempData = []
+        angerVals.forEach(function(angryVal){
+          self.tempData.push({
+            municipality: angryVal["key"],
+            angryTweetsCount: angryVal["value"],
+            totalTweetsCount: -1,
+            angryTweetPercent: -1,
+            reportedDrugCases: -1,
+            totalPopulation: -1,
+            drugCasesPer100Pop: -1
+          })
+        })
+        
         self.tempData2 = []
 				for(let i = 0; i < self.tempData.length; i++){
-        let totalTweets = self.getDataForKey(self.tempData[i].municipality, totalVals)
-        self.tempData[i].totalTweetsCount = totalTweets
-				if(self.tempData[i].totalTweetsCount !== -1){
-					self.tempData2.push(self.tempData[i])
-				}
-				}
+          let totalTweets = self.getDataForKey(self.tempData[i].municipality, totalVals)
+          self.tempData[i].totalTweetsCount = totalTweets
+          if(self.tempData[i].totalTweetsCount !== -1){
+            self.tempData2.push(self.tempData[i])
+          }
+        }
+        
+        self.tempData3 = []
+        for(let i = 0; i < self.tempData2.length; i++){
+          let reportedDrugCases = self.getDataInValue(self.tempData2[i].municipality, aurinDrugCasesVals, 1)
+          self.tempData2[i].reportedDrugCases = reportedDrugCases
+          if(self.tempData2[i].reportedDrugCases !== -1){
+            self.tempData3.push(self.tempData2[i])
+          }
+        }
 
-				self._apiService.getAurinDrugCasesVals(data.API_URL)
-				.subscribe(aurinValsData => {
-          let aurinDrugCasesVals = aurinValsData
-          self.tempData3 = []
-					for(let i = 0; i < self.tempData2.length; i++){
-            let reportedDrugCases = self.getDataInValue(self.tempData2[i].municipality, aurinDrugCasesVals, 1)
-            self.tempData2[i].reportedDrugCases = reportedDrugCases
-						if(self.tempData2[i].reportedDrugCases !== -1){
-							self.tempData3.push(self.tempData2[i])
-						}
-					}
+        self.tempData4 = []
+        for(let i = 0; i < self.tempData3.length; i++){
+          let totalPopulation = self.getDataInValue(self.tempData3[i].municipality, aurinPopulationVals, 2)
+          self.tempData3[i].totalPopulation = totalPopulation
+          if(self.tempData3[i].totalPopulation !== -1){
+            self.tempData4.push(self.tempData3[i])
+          }
+        }
 
-					self._apiService.getAurinPopulationVals(data.API_URL)
-					.subscribe(aurinValsData => {
-            let aurinPopulationVals = aurinValsData["rows"]
-            self.tempData4 = []
-						for(let i = 0; i < self.tempData3.length; i++){
-              let totalPopulation = self.getDataInValue(self.tempData3[i].municipality, aurinPopulationVals, 2)
-              self.tempData3[i].totalPopulation = totalPopulation
-							if(self.tempData3[i].totalPopulation !== -1){
-								self.tempData4.push(self.tempData3[i])
-							}
-						}
+        self.angerDrugCoRelationList = [];
+        self.tempData4.forEach(function(finalData){
+          let corData = new AngerDrugCoRelation()
+          corData.municipality = finalData.municipality;
+          corData.angryTweetPercent = (finalData.angryTweetsCount / finalData.totalTweetsCount) * 100
+          corData.reportedDrugCasesPer100 = ((finalData.reportedDrugCases / finalData.totalPopulation) * 100)
+          self.angerDrugCoRelationList.push(corData)
+        })
+        self.angerDrugCoRelationList.forEach(angerDrugCoRelationData => {
+          self.tweetsBarGraphDataItems.push(new BarGraphData(angerDrugCoRelationData.municipality, angerDrugCoRelationData.angryTweetPercent));
+          self.drugCasesBarGraphDataItems.push(new BarGraphData(angerDrugCoRelationData.municipality, angerDrugCoRelationData.reportedDrugCasesPer100));
+        });
+        self.tweetsBarGraphLayout = new BarGraphLayout("Percentage of angry tweets")
+        self.drugCasesBarGraphLayout = new BarGraphLayout("Drug related offences per 100 inhabitants")
+        self.scatterPlot('tweets-bargraph', self.tweetsBarGraphDataItems, self.tweetsBarGraphLayout);
+        self.scatterPlot('drug-cases-bargraph', self.drugCasesBarGraphDataItems, self.drugCasesBarGraphLayout);
+        self.loading = false;
+      });
 
-						self.angerDrugCoRelationList = [];
-
-									self.tempData4.forEach(function(finalData){
-										let corData = new AngerDrugCoRelation()
-										corData.municipality = finalData.municipality;
-										corData.angryTweetPercent = (finalData.angryTweetsCount / finalData.totalTweetsCount) * 100
-										corData.reportedDrugCasesPer100 = ((finalData.reportedDrugCases / finalData.totalPopulation) * 100)
-										self.angerDrugCoRelationList.push(corData)
-									})
-									self.angerDrugCoRelationList.forEach(angerDrugCoRelationData => {
-										self.tweetsBarGraphDataItems.push(new BarGraphData(angerDrugCoRelationData.municipality, angerDrugCoRelationData.angryTweetPercent));
-										self.drugCasesBarGraphDataItems.push(new BarGraphData(angerDrugCoRelationData.municipality, angerDrugCoRelationData.reportedDrugCasesPer100));
-									});
-									self.tweetsBarGraphLayout = new BarGraphLayout("Percentage of angry tweets")
-									self.drugCasesBarGraphLayout = new BarGraphLayout("Drug related offences per 100 inhabitants")
-									self.scatterPlot('tweets-bargraph', self.tweetsBarGraphDataItems, self.tweetsBarGraphLayout);
-									self.scatterPlot('drug-cases-bargraph', self.drugCasesBarGraphDataItems, self.drugCasesBarGraphLayout);
-							})
-					})
-			})
-      })
     })    
   }
   scatterPlot(element, barGraphDataItems, layout){
